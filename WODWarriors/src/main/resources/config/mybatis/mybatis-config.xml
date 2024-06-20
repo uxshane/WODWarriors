@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "HTTP://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+	</settings>
+	
+	<typeAliases>
+		<!-- 여기밑에 쓰고 싶은 VO의 닉네임을 밑에 형식처럼 설정할 수 있습니다. -->
+		<!-- <typeAlias type="vo.BoardVo" alias="board"/> -->
+	</typeAliases>
+	
+	<mappers>
+		<!-- 여기밑에 쓰고 싶은 mapper.xml 밑에 형식처럼 만들어서 쓰세요 -->
+		<!-- <mapper resource="config/mybatis/mapper/direct_radiation.xml"/> -->
+		
+	</mappers>
+</configuration>

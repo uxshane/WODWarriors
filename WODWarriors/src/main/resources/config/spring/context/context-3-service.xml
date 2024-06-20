@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- jdbcTemplate이 있으면 사실 DAO도 필요없고 필요한 비즈니스 로직을 service에 묶어주면 됌. -->
+	<!-- <bean id="uv_daoBean" class="dao.UVDAO">
+		<constructor-arg ref="jdbcTemplateBean"></constructor-arg>
+	</bean> -->
+	
+	
+		
+</beans>
