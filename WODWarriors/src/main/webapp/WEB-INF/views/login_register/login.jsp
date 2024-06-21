@@ -43,7 +43,12 @@
         <h2>로그인</h2>
         <form action="<c:url value='/login'/>" method="post">
             <label for="email">이메일</label>
-            <input type="email" id="email" name="email" required>
+            <c:if test="${not empty email}">
+	            <input type="email" id="email" name="email" value="${ email }" required>
+        	</c:if>
+            <c:if test="${empty email}">
+	            <input type="email" id="email" name="email" required>
+        	</c:if>
 
             <label for="password">비밀번호</label>
             <input type="password" id="password" name="password" required>
@@ -51,7 +56,7 @@
             <button type="button" onclick="login(this.form)">이메일 로그인</button>
         </form>
         <div class="links">
-            <a href="<c:url value='/reset-password'/>">비밀번호를 잃어버리셨나요?</a>
+            <a href="<c:url value='/find_password.do'/>">비밀번호를 잃어버리셨나요?</a>
             <p>아직 계정이 없으신가요?</p>
             <a href="<c:url value='/register.do'/>">이메일로 가입하기</a>
             <a href="<c:url value='/main.do'/>">메인으로 가기</a>
