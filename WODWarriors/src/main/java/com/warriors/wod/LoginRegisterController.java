@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.EmailService;
 import service.UserService;
@@ -49,11 +50,11 @@ public class LoginRegisterController {
 	//회원가입 "진행시켜!!"
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
 	public String registerUser(UserVO user, String verificationCode, Model model) {
-		//인증코드 
-		if (!emailService.verifyCode(user.getEmail(), verificationCode)) { // 추가된 부분
-            model.addAttribute("error", "인증코드가 올바르지 않습니다.");
-            return "/WEB-INF/views/login_register/register.jsp";
-        }
+//		//인증코드 
+//		if (!emailService.verifyCode(user.getEmail(), verificationCode)) {
+//            model.addAttribute("error", "인증코드가 올바르지 않습니다.");
+//            return "/WEB-INF/views/login_register/register.jsp";
+//        }
 		
 		// 이메일 존재 여부 확인
 		boolean emailExists = emailService.emailExists(user.getEmail());
@@ -77,12 +78,14 @@ public class LoginRegisterController {
 
 	/*------------------------------------------------------------*/
 	//인증코드를 보내주는 작업을 하는 용도
-    @RequestMapping(value = "/sendVerificationCode.do", method = RequestMethod.POST)
-    public void sendVerificationCode(@RequestParam("email") String email) {
+	@RequestMapping(value = "/sendVerificationCode.do", method = RequestMethod.POST)
+	@ResponseBody
+    public String sendVerificationCode(@RequestParam("email") String email) {
         try {
-			emailService.generateAndSendVerificationCode(email);
+			String code = emailService.generateAndSendVerificationCode(email);
+			return code;
 		} catch (MessagingException e) {
-			e.printStackTrace();
+			return "error";
 		}
     }
 	
