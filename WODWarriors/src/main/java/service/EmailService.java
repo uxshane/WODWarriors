@@ -8,6 +8,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -33,11 +34,13 @@ public class EmailService {
     }
 	
 	public void sendPasswordByEmail(String email) {
-		String sql = "SELECT * FROM USERS WHERE email = '" + email + "'";
-        UserVO user = jdbcTemplate.queryForObject(sql, UserVO.class);
+		String sql = "SELECT * FROM USERS WHERE email = ?";
+        UserVO user = jdbcTemplate.queryForObject(sql, new Object[]{email},
+        										  new BeanPropertyRowMapper<>(UserVO.class));
         String password = user.getPassword();
-        String subject = "Your Password";
-        String message = "Your password is: " + password;
+        System.out.println(password);
+        String subject = "WODWarriors: 비밀번호 전송";
+        String message = user.getName() + "님의 비밀번호는 " + password + " 입니다.";
 
         try {
             sendEmail(email, subject, message);
@@ -48,12 +51,11 @@ public class EmailService {
 	
     public void sendEmail(String to, String subject, String text) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        MimeMessageHelper helper = new MimeMessageHelper(message, false, "UTF-8");
 
         helper.setTo(to);
         helper.setSubject(subject);
         helper.setText(text, true);
-
         mailSender.send(message);
     }
     

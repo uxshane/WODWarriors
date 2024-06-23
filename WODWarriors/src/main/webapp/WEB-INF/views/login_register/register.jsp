@@ -62,8 +62,6 @@
 	            	if(check_code.value == verificationCode.value) {
 	            		verificationCode.setCustomValidity("");
 	            	} else {
-	            		console.log(verificationCode.value);
-	            		console.log(check_code.value);
 	            		verificationCode.setCustomValidity("인증코드가 올바르지 않습니다");
 		            	verificationCode.reportValidity();
 		            	return false;
@@ -109,11 +107,15 @@
 		                        newField.innerHTML = `
 		                            <label for="verificationCode">인증코드</label>
 		                            <input type="text" id="verificationCode" name="verificationCode" required>
-		                            <input type="hidden" id="check_code" value=${response}>
+		                            <input type="hidden" id="check_code">
+		                            <input type="hidden" id="verifiedEmail">
 		                            `;
 		                        emailField.parentNode.insertBefore(newField, emailField.nextSibling);
 		                    }
+		                    document.getElementById("check_code").value = response;
+		                    document.getElementById("verifiedEmail").value = email;
 	                  	}
+	                	document.getElementById("email").readOnly = true;
 	                }	
 	            };
 	            

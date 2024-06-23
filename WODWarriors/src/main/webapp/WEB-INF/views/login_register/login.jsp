@@ -30,8 +30,8 @@
 	                password.setCustomValidity("");
 	            }
 				
-	            f.action = "/main.do";
-	            f.method = "get";
+	            f.action = "verify_login.do";
+	            f.method = "post";
 	            f.submit();
 	    	}
 	    

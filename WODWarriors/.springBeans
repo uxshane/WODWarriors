@@ -7,9 +7,12 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
+		<config>src/main/resources/config/spring/context/context-2-preload.xml</config>
 	</configs>
 	<autoconfigs>
-		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>
+		<config>src/main/resources/config/spring/mvc/servlet-context.xml</config>
+		<config>src/main/resources/config/spring/context/context-1-datasource.xml</config>
+		<config>src/main/resources/config/spring/context/context-3-service.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

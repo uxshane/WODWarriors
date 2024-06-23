@@ -21,7 +21,7 @@
 	                email.setCustomValidity("");
 	            }
 	
-	            f.action = "/send_email_password.do";
+	            f.action = "send_email_password.do";
 	            f.method = "post";
 	            f.submit();
 	            //gitignore 파일 적용 테스트

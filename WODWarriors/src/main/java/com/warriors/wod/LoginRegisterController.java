@@ -50,12 +50,6 @@ public class LoginRegisterController {
 	//회원가입 "진행시켜!!"
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
 	public String registerUser(UserVO user, String verificationCode, Model model) {
-//		//인증코드 
-//		if (!emailService.verifyCode(user.getEmail(), verificationCode)) {
-//            model.addAttribute("error", "인증코드가 올바르지 않습니다.");
-//            return "/WEB-INF/views/login_register/register.jsp";
-//        }
-		
 		// 이메일 존재 여부 확인
 		boolean emailExists = emailService.emailExists(user.getEmail());
 		if (emailExists) {
