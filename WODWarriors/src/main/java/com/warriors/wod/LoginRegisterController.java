@@ -1,6 +1,8 @@
 package com.warriors.wod;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,15 +49,51 @@ public class LoginRegisterController {
 	/*------------------------------------------------------------*/
 
 	/*------------------------------------------------------------*/
+	//로그인 "진행시켜!!"
+	@RequestMapping(value = "/verify_login.do", method = RequestMethod.POST)
+	public String verify_user_login(String email, String password, Model model, HttpServletResponse response) {
+		UserVO user = userService.getUserByEmail(email);
+
+        if (user == null || !user.getPassword().equals(password)) {
+            model.addAttribute("error", "이메일 또는 비밀번호가 잘못되었습니다.");
+            model.addAttribute("email", email);
+            return "/WEB-INF/views/login_register/login.jsp";
+        }
+
+        // 로그인 성공 시 쿠키에 저장
+        Cookie emailCookie = new Cookie("userEmail", user.getEmail());
+        emailCookie.setPath("/");
+        emailCookie.setMaxAge(60 * 60 * 24); // 1일 동안 유효
+
+        // 역할 쿠키 생성 및 설정
+        Cookie roleCookie = new Cookie("userRole", user.getIsAdmin() == 1 ? "admin" : "user");
+        roleCookie.setPath("/");
+        roleCookie.setMaxAge(60 * 60 * 24); // 1일 동안 유효
+
+        // 응답에 쿠키 추가
+        response.addCookie(emailCookie);
+        response.addCookie(roleCookie);
+
+        return "redirect:/main.do";
+	}
+	
 	//회원가입 "진행시켜!!"
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
-	public String registerUser(UserVO user, String verificationCode, Model model) {
+	public String registerUser(UserVO user, String verificationCode, Model model, String signMeAdmin) {
 		// 이메일 존재 여부 확인
 		boolean emailExists = emailService.emailExists(user.getEmail());
 		if (emailExists) {
 			model.addAttribute("error", "이메일이 존재합니다.");
 			return "/WEB-INF/views/login_register/register.jsp";
 		} else {
+			
+			//일단 isAdmin=0으로 등록시키고 서버관리자 이메일로 신청인의 이메일, 이름과 함께 보냄
+			//추후에 서버 관리자가 확인하고 수동으로 DB에 isAdmin을 1로 변경시켜줘야함.
+			user.setIsAdmin(0);
+			if(signMeAdmin != null && signMeAdmin.equals("on")) {
+				emailService.sendAdminRegiForm(user.getEmail(), user.getName());
+			}
+			
 			// DB에 사용자 정보 저장
 			int res = userService.registerUser(user);
 

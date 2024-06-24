@@ -145,7 +145,12 @@
 
             <label for="name">이름</label>
             <input type="text" id="name" name="name" required>
-
+            
+            <div class="checkbox">
+            	<input type="checkbox" id="signMeAdmin" name="signMeAdmin">
+            	<label for="isAdmin">관리자 신청</label>
+            </div>
+            
             <div class="checkbox">
                 <input type="checkbox" id="agree" name="agree" required>
                 <label for="agree">개인정보보호방침에 동의합니다</label>

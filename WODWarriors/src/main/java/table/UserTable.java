@@ -10,12 +10,10 @@ public class UserTable {
 	@Autowired
 	private JdbcTemplate jdbcTemplate; 
 	
-	public UserTable() {}
-	
 	@PostConstruct
 	public void init() {
 		if (!isUserTableExists()) {
-			System.out.println("테이블이 존재하지 않음. 만드는중...");
+			System.out.println("User테이블이 존재하지 않음. 만드는중...");
 			createUserTable();
 		}
 	}
@@ -39,9 +37,10 @@ public class UserTable {
     	
         String sql = "CREATE TABLE USERS ("
                 + "idx NUMBER PRIMARY KEY, "
-                + "name VARCHAR2(100), "
-                + "email VARCHAR2(100), "
-                + "password VARCHAR2(100))";
+                + "name VARCHAR2(100) NOT NULL, "
+                + "email VARCHAR2(100) UNIQUE NOT NULL, "
+                + "password VARCHAR2(100) NOT NULL, "
+                + "isAdmin NUMBER(1) NOT NULL)";
         jdbcTemplate.execute(sql);
 	}
 	

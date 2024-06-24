@@ -14,6 +14,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import util.PropertiesUtil;
 import vo.UserVO;
 
 @Service
@@ -38,7 +39,6 @@ public class EmailService {
         UserVO user = jdbcTemplate.queryForObject(sql, new Object[]{email},
         										  new BeanPropertyRowMapper<>(UserVO.class));
         String password = user.getPassword();
-        System.out.println(password);
         String subject = "WODWarriors: 비밀번호 전송";
         String message = user.getName() + "님의 비밀번호는 " + password + " 입니다.";
 
@@ -57,6 +57,21 @@ public class EmailService {
         helper.setSubject(subject);
         helper.setText(text, true);
         mailSender.send(message);
+    }
+    
+    public void sendAdminRegiForm(String email, String name) {
+        String subject = "WODWarriors: 관리자 신청서";
+        String message = name + "님께서 해당 " + email + " 이메일로 신청서를 넣으셨습니다.";
+        
+        PropertiesUtil propertiesUtil = new PropertiesUtil("secret_key.properties");
+        String to = propertiesUtil.getProperty("gmail");
+        System.out.println("Gmail: " + to);
+        
+        try {
+            sendEmail(to, subject, message);
+        } catch (MessagingException e) {
+            System.out.println("어떤 오류때문에 이메일이 보내지지 않음");
+        }
     }
     
     public String generateAndSendVerificationCode(String email) throws MessagingException {
