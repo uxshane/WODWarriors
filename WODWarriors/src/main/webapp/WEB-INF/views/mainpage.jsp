@@ -89,6 +89,18 @@
 		        });
 		    });
 		</script>
+		
+		<script>
+	        function checkLoginAndRedirect(url) {
+	            var isLoggedIn = ${not empty sessionScope.loggedInUser};
+	            if (isLoggedIn) {
+	                location.href = url;
+	            } else {
+	                alert("로그인이 필요합니다.");
+	                location.href = "<c:url value='/login.do'/>";
+	            }
+	        }
+   		</script>
 
 </head>
 	
@@ -98,8 +110,8 @@
 		
 		<div class="icon-bar">
 			<div class="icon" onclick="location.href='<c:url value='/main.do'/>'"><i class="fas fa-home"></i></div>
-            <div class="icon" onclick="location.href='<c:url value='/schedule.do'/>'"><i class="fas fa-calendar-alt"></i></div>
-            <div class="icon" onclick="location.href='<c:url value='/friends.do'/>'"><i class="fas fa-users"></i></div>
+            <div class="icon" onclick="checkLoginAndRedirect('<c:url value='/register_lightning.do'/>')"><i class="fas fa-calendar-alt"></i></div>
+            <div class="icon" onclick="location.href='<c:url value='/testmap.do'/>'"><i class="fas fa-users"></i></div>
             <div class="icon" onclick="location.href='<c:url value='/settings.do'/>'"><i class="fas fa-cog"></i></div>
 		</div>
 		
@@ -118,6 +130,10 @@
 		<c:if test="${isAdmin}">
 			<button class="fixed-button" onclick="location.href='/writeNotice.do'">+</button>
 		</c:if>
+		
+		<c:if test="${not empty sessionScope.loggedInUser}">
+            <button class="logout-button" onclick="location.href='<c:url value='/logout.do'/>'">Logout</button>
+        </c:if>
 	</div>
 </body>
 </html>

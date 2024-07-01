@@ -40,8 +40,8 @@ public class NoticeTable {
     	        + "title VARCHAR2(255) NOT NULL, "
     	        + "content CLOB NOT NULL, "
     	        + "regdate DATE DEFAULT SYSDATE, "
-    	        + "user_id NUMBER NOT NULL, "
-    	        + "CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES USERS(idx))";
+    	        + "user_idx NUMBER NOT NULL, "
+    	        + "CONSTRAINT fk_user_id_notices FOREIGN KEY (user_idx) REFERENCES USERS(idx))";
         jdbcTemplate.execute(sql);
 	}
 	

@@ -9,5 +9,6 @@
 	<!-- <context:component-scan base-package="table" /> -->
 	<bean id="userTableBean" class="table.UserTable"></bean>
 	<bean id="noticeTableBean" class="table.NoticeTable"></bean>
+	<bean id="postTableBean" class="table.PostTable"></bean>
 	
 </beans>
