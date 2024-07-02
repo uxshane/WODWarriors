@@ -19,6 +19,7 @@ public class PostVO {
     private Date regdate;
     private int user_idx;
     private int isPast;
+    private int exercise_option_id;
 
     // Getters and Setters
     public int getIdx() {
@@ -101,7 +102,15 @@ public class PostVO {
 		this.isPast = isPast;
 	}
 	
-	  // 현재 시간과 startdate 및 starttime 비교 메서드
+	public int getExercise_option_id() {
+		return exercise_option_id;
+	}
+
+	public void setExercise_option_id(int exercise_option_id) {
+		this.exercise_option_id = exercise_option_id;
+	}
+
+	// 현재 시간과 startdate 및 starttime 비교 메서드
     public int isStartDateTimeInThePast() {
         LocalDate date = LocalDate.parse(startdate, DateTimeFormatter.ISO_LOCAL_DATE);
         LocalTime time = LocalTime.parse(starttime, DateTimeFormatter.ISO_LOCAL_TIME);

@@ -9,6 +9,7 @@
 	<!-- <context:component-scan base-package="table" /> -->
 	<bean id="userTableBean" class="table.UserTable"></bean>
 	<bean id="noticeTableBean" class="table.NoticeTable"></bean>
+	<bean id="exercise_optionsTableBean" class="table.Exercise_OptionsTable"></bean>
 	<bean id="postTableBean" class="table.PostTable"></bean>
 	
 </beans>

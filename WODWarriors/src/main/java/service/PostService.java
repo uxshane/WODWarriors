@@ -1,6 +1,5 @@
 package service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +8,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import vo.NoticeVO;
 import vo.PostVO;
 
 @Service
@@ -23,16 +21,21 @@ public class PostService {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(PostVO.class));
     }
 
-    public boolean createPost(PostVO post, int userIdx) {
-    	String sql = "INSERT INTO posts (idx, startdate, starttime, title, location, recruitment, description, regdate, user_idx) "
-    				+ "VALUES (SEQ_POSTS_IDX.nextVal, ?, ?, ?, ?, ?, ?, sysdate, ?)";
-        return jdbcTemplate.update(sql, post.getStartdate(), 
-        								post.getStarttime(), 
-        								post.getTitle(), 
-        								post.getLocation(), 
-        								post.getRecruitment(), 
-        								post.getDescription(),
-        								userIdx) > 0;
+    public boolean createPost(PostVO post, int userIdx, String exercise, String exerciseOption) {
+    	String find_option_id = "SELECT option_id FROM exercise_options WHERE exercise_type = ? AND option_value = ?";
+    	Integer option_id = jdbcTemplate.queryForObject(find_option_id, new Object[]{exercise, exerciseOption}, Integer.class);
+    	
+    	String sql = "INSERT INTO posts (idx, startdate, starttime, title, location, recruitment, description, regdate, user_idx, ispast, exercise_option_id) "
+                + "VALUES (SEQ_POSTS_IDX.nextVal, ?, ?, ?, ?, ?, ?, sysdate, ?, ?, ?)";
+    	return jdbcTemplate.update(sql, post.getStartdate(), 
+						                post.getStarttime(), 
+						                post.getTitle(), 
+						                post.getLocation(), 
+						                post.getRecruitment(), 
+						                post.getDescription(),
+						                userIdx,
+						                post.getIsPast(),
+						                option_id) > 0;
     }
     
     public int getUserIdByEmail(String email) {

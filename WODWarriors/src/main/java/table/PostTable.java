@@ -46,7 +46,9 @@ public class PostTable {
     	        + "regdate DATE DEFAULT SYSDATE, "
     	        + "user_idx NUMBER NOT NULL, "
     	        + "isPast NUMBER(1) DEFAULT 0 NOT NULL, "
-    	        + "CONSTRAINT fk_user_id_posts FOREIGN KEY (user_idx) REFERENCES USERS(idx))";
+    	        + "EXERCISE_OPTION_ID NUMBER, "
+    	        + "CONSTRAINT fk_user_id_posts FOREIGN KEY (user_idx) REFERENCES USERS(idx), "
+    	        + "CONSTRAINT FK_EXERCISE_OPTION FOREIGN KEY (EXERCISE_OPTION_ID) REFERENCES EXERCISE_OPTIONS(OPTION_ID))";
         jdbcTemplate.execute(sql);
 	}
 	

@@ -22,35 +22,62 @@
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${ appKey }&libraries=services,clusterer"></script>
    <script>
    		
-   		var geocoder = new kakao.maps.services.Geocoder();
-		var posts = ${posts};
-		var listdata = [];
-		
-		posts.forEach(function(post) {
-			listdata.push(post.location);
-		});
-		
-	     // listData를 이용하여 지도에 마커 표시
-        listdata.forEach(function(addr, index) {
-        	console.log(addr);
-            geocoder.addressSearch(addr, function(result, status) {
-                if (status === kakao.maps.services.Status.OK) {
-                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	   var geocoder = new kakao.maps.services.Geocoder();
+	   var posts = JSON.parse('${posts}');
+	   posts.forEach(function(post) {
+	       var addr = post.location;
+	       var content = '<div style="width:200px;text-align:center;padding:10px 0;">' +
+	           '<h4>' + post.title + '</h4>' +
+	           '<p>' + post.description + '</p>' +
+	           '<p>' + post.startdate + ' ' + post.starttime + '</p>' +
+	           '<p>Location: ' + post.location + '</p>' +
+	           '</div>';
 
-                    var marker = new kakao.maps.Marker({
-                        map: map,
-                        position: coords
-                    });
+	        // post.option_id를 숫자로 변환
+	        var optionId = parseInt(post.exercise_option_id, 10);
+			console.log(optionId);
+	        var imageSrc;
+	        if (optionId >= 1 && optionId <= 3) {
+	            imageSrc = 'resources/images/running.png'; // 런닝 이미지 경로
+	        } else if (optionId >= 4 && optionId <= 5) {
+	            imageSrc = 'resources/images/bodybuilding.png'; // 바디빌딩 이미지 경로
+	        } else if (optionId >= 6 && optionId <= 8) {
+	            imageSrc = 'resources/images/yoga.png'; // 요가 이미지 경로
+	        } else if (optionId >= 9 && optionId <= 11) {
+	            imageSrc = 'resources/images/hiking.png'; // 등산 이미지 경로
+	        }
+	
+	       var imageSize = new kakao.maps.Size(64, 69); // 아이콘 이미지 크기
+	       var imageOption = {offset: new kakao.maps.Point(27, 69)}; // 아이콘 이미지 위치 조정
+	
+	       geocoder.addressSearch(addr, function(result, status) {
+	           if (status === kakao.maps.services.Status.OK) {
+	               var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	
+	               var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+	
+	               var marker = new kakao.maps.Marker({
+	                   map: map,
+	                   position: coords,
+	                   image: markerImage // 마커 이미지 설정
+	               });
+	
+	               var infowindow = new kakao.maps.InfoWindow({
+	                   content: content,
+	                   disableAutoPan: true
+	               });
+	
+	               kakao.maps.event.addListener(marker, 'mouseover', function() {
+	                   infowindow.open(map, marker);
+	               });
+	
+	               kakao.maps.event.addListener(marker, 'mouseout', function() {
+	                   infowindow.close();
+	               });
+	           }
+	       });
+	   });
 
-                    var infowindow = new kakao.maps.InfoWindow({
-                        content: '<div style="width:150px;text-align:center;padding:6px 0;">' + addr + '</div>',
-                        disableAutoPan: true
-                    });
-
-                    infowindow.open(map, marker);
-                }
-            });
-        });
    
    </script>
 

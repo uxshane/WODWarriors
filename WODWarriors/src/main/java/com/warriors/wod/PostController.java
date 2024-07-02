@@ -26,13 +26,16 @@ public class PostController {
     
     @RequestMapping("createPost.do")
     @ResponseBody
-    public Map<String, String> createPost(@ModelAttribute PostVO post, HttpServletRequest request) {
+    public Map<String, String> createPost(@ModelAttribute PostVO post,
+    									  String exercise,
+    									  String exerciseOption,
+    									  HttpServletRequest request) {
     	HttpSession session = request.getSession();
     	int userIdx = (int) session.getAttribute("userIdx");
     	
     	post.setIsPast(post.isStartDateTimeInThePast());
     	
-        boolean isCreated = postService.createPost(post, userIdx);
+        boolean isCreated = postService.createPost(post, userIdx, exercise, exerciseOption);
         
         Map<String, String> result = new HashMap<String, String>();
 
