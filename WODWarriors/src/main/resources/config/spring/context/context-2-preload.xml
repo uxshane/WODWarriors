@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	
+	<!-- Usertable을 DB에 자동 생성 -->
+	<!-- <context:component-scan base-package="table" /> -->
+	<bean id="userTableBean" class="table.UserTable"></bean>
+	<bean id="noticeTableBean" class="table.NoticeTable"></bean>
+	<bean id="exercise_optionsTableBean" class="table.Exercise_OptionsTable"></bean>
+	<bean id="postTableBean" class="table.PostTable"></bean>
+	<bean id="recruitmentTableBean" class="table.RecruitmentTable"></bean>
+	
+</beans>

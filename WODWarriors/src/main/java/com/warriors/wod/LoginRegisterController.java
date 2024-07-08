@@ -46,6 +46,58 @@ public class LoginRegisterController {
 	/*------------------------------------------------------------*/
 
 	/*------------------------------------------------------------*/
+<<<<<<< Updated upstream
+=======
+	 // 로그인 "진행시켜!!"
+    @RequestMapping(value = "/verify_login.do", method = RequestMethod.POST)
+    public String verify_user_login(String email, String password, Model model, HttpServletRequest request, HttpServletResponse response) {
+        UserVO user = userService.getUserByEmail(email);
+        boolean loggedInUser = false;
+        if (user == null || !user.getPassword().equals(password)) {
+            model.addAttribute("error", "이메일 또는 비밀번호가 잘못되었습니다.");
+            model.addAttribute("email", email);
+            return "/WEB-INF/views/login_register/login.jsp";
+        }
+        
+        loggedInUser = true;
+        HttpSession session = request.getSession();
+        session.setAttribute("loggedInUser", loggedInUser);
+        session.setAttribute("userIdx", user.getIdx());
+
+//        Cookie idxCookie = new Cookie("userIdx", String.valueOf(user.getIdx()));
+//        idxCookie.setPath("/");
+//        idxCookie.setMaxAge(60 * 60 * 24); // 1일 동안 유효
+//
+//        Cookie roleCookie = new Cookie("userRole", user.getIsAdmin() == 1 ? "admin" : "user");
+//        roleCookie.setPath("/");
+//        roleCookie.setMaxAge(60 * 60 * 24); // 1일 동안 유효
+//
+//        response.addCookie(idxCookie);
+//        response.addCookie(roleCookie);
+
+        return "redirect:/main.do";
+    }
+    
+    // 로그아웃 처리
+    @RequestMapping("/logout.do")
+    public String logoutUser(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        session.invalidate();
+
+        Cookie idxCookie = new Cookie("userIdx", null);
+        idxCookie.setPath("/");
+        idxCookie.setMaxAge(0); // 쿠키 삭제
+        response.addCookie(idxCookie);
+
+        Cookie roleCookie = new Cookie("userRole", null);
+        roleCookie.setPath("/");
+        roleCookie.setMaxAge(0); // 쿠키 삭제
+        response.addCookie(roleCookie);
+        
+        return "redirect:/login.do";
+    }
+	
+>>>>>>> Stashed changes
 	//회원가입 "진행시켜!!"
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
 	public String registerUser(UserVO user, String verificationCode, Model model) {

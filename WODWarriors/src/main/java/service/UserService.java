@@ -12,6 +12,16 @@ public class UserService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	public UserVO selectOneUser(int userIdx) {
+		String sql = "SELECT * FROM USERS WHERE userIdx = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{userIdx},
+            								   new BeanPropertyRowMapper<>(UserVO.class));
+        } catch (Exception e) {
+            return null;
+        }
+	}
+	
 	public int registerUser(UserVO user) {
 		String sql = "INSERT INTO USERS (idx, name, email, password) "
 				   + "VALUES (seq_user_idx.nextVal, ?, ?, ?)";
