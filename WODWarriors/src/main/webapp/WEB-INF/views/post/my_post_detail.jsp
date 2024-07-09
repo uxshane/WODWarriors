@@ -138,10 +138,13 @@ body {
 <body>
 	<div class="container">
 		<div class="header">
-			<div class="header-title">번개 상세</div>
+			<div class="header-title">상세</div>
 		</div>
 		<div class="content">
 			<div class="content-title">${postUser.title}</div>
+			
+			<hr>
+			
 			<div class="content-item">
 				<img src="resources/images/clock.png" alt="Time"> <span>${postUser.startDate}
 					${postUser.startTime}</span>
@@ -158,9 +161,15 @@ body {
 			<div class="content-item">
 				<img src="resources/images/person.png" alt="User"> <span>${postUser.userName}</span>
 			</div>
+			
+			<hr>
+			
 			<div class="content-item">
 				<span>${postUser.description}</span>
 			</div>
+			
+			<hr>
+			
 		</div>
 		<div class="applicant-list">
 			<h3>신청자 목록</h3>
@@ -180,6 +189,8 @@ body {
 			<button class="button edit-button">수정하기</button>
 			<button class="button delete-button">삭제하기</button>
 		</div>
+		<hr>
+		<jsp:include page="footer.jsp"/>
 	</div>
 </body>
 </html>

@@ -101,7 +101,7 @@
     <div class="container">
         <div class="header">
             <div style="display: flex; align-items: center;">
-                <div class="header-title">번개 상세</div>
+                <div class="header-title">상세</div>
             </div>
             <c:choose>
                 <c:when test="${isApplicant}">
@@ -120,6 +120,9 @@
         </div>
         <div class="content">
             <div class="content-title">${postUser.title}</div>
+            
+            <hr>
+            
             <div class="content-item">
                 <img src="resources/images/clock.png" alt="Time">
                 <span>${postUser.startDate} ${postUser.startTime}</span>
@@ -140,9 +143,15 @@
                 <img src="resources/images/person.png" alt="User">
                 <span>${postUser.userName}</span>
             </div>
+            
+            <hr>
+            
             <div class="content-item">
                 <span>${postUser.description}</span>
             </div>
+            
+            <hr>
+            
         </div>
         <div class="applicant-list">
             <h3>신청자 목록</h3>
@@ -158,6 +167,8 @@
                 아직 신청자가 없습니다
             </c:if>
         </div>
+        <hr>
+        <jsp:include page="footer.jsp"/>
     </div>
 </body>
 </html>

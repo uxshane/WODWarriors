@@ -30,8 +30,8 @@
 	                password.setCustomValidity("");
 	            }
 				
-	            f.action = "/main.do";
-	            f.method = "get";
+	            f.action = "verify_login.do";
+	            f.method = "post";
 	            f.submit();
 	    	}
 	    
@@ -52,6 +52,10 @@
 
             <label for="password">비밀번호</label>
             <input type="password" id="password" name="password" required>
+            
+            <c:if test="${not empty error}">
+                <div class="error-message" style="color: red; margin-top: 10px;">${error}</div>
+            </c:if>
 
             <button type="button" onclick="login(this.form)">이메일 로그인</button>
         </form>
@@ -68,24 +72,3 @@
     </div>
 	</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -92,10 +92,18 @@ public class PostController {
 	}
 
 	@RequestMapping("join_activity.do")
-	public String joinActivity(int postIdx, HttpSession session) {
+	public String joinActivity(int postIdx, HttpSession session, Model model) {
 		
-		int post_user_idx = postService.selectOnePostWithUserInfo(postIdx).getUserIdx();
+		PostUserVO postUserVO = postService.selectOnePostWithUserInfo(postIdx);
+		int max_recruitment = recruitmentService.getApplicantCount(postIdx);
+		
+		if(postUserVO.getRecruitment() == max_recruitment) {
+			model.addAttribute("max_rec", postUserVO)
+		}
+		
+		int post_user_idx = postUserVO.getUserIdx();
 		int join_user_idx = (int) session.getAttribute("userIdx");
+		
 
 		boolean success = recruitmentService.insertApplicant(postIdx, post_user_idx, join_user_idx);
 

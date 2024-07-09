@@ -8,9 +8,9 @@
 	<!-- Usertable을 DB에 자동 생성 -->
 	<!-- <context:component-scan base-package="table" /> -->
 	<bean id="userTableBean" class="table.UserTable"></bean>
-	<bean id="noticeTableBean" class="table.NoticeTable"></bean>
-	<bean id="exercise_optionsTableBean" class="table.Exercise_OptionsTable"></bean>
-	<bean id="postTableBean" class="table.PostTable"></bean>
+	<!-- <bean id="noticeTableBean" class="table.NoticeTable"></bean> -->
+	<bean id="exercise_optionsTableBean" class="table.Exercise_OptionsTable"></bean> 
+	<bean id="postTableBean" class="table.PostTable"></bean> 
 	<bean id="recruitmentTableBean" class="table.RecruitmentTable"></bean>
 	
 </beans>

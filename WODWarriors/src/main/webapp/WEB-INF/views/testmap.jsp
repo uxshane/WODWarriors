@@ -7,16 +7,27 @@
    <title>Insert title here</title>
    
    <style>
-      /* 화면 중앙 정렬을 위한 CSS */
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* 뷰포트 높이를 100%로 설정 */
-            margin: 0; /* 기본 마진 제거 */
-            background-color: #f0f0f0; /* 배경 색상 (선택 사항) */
-        }
-        
+	   body {
+	        display: flex;
+	        flex-direction: column;
+	        align-items: center;
+	        height: 100vh;
+	        margin: 0;
+	        background-color: #f0f0f0;
+	    }
+	    
+	    #map {
+	        width: 800px;
+	        height: 600px;
+	        margin-bottom: 20px; /* 맵과 아이콘 바 사이의 간격 */
+	    }
+	    
+	    .footer-container {
+	        width: 800px; /* 맵의 너비와 동일하게 설정 */
+	        display: flex;
+	        justify-content: center;
+	        position: relative;
+	    }
    </style>
    
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${ appKey }&libraries=services,clusterer"></script>
@@ -131,8 +142,12 @@
 </head>
    
 <body>
-
-   <div id="map" style="width: 800px; height: 600px;"></div>
+	
+   <div id="map" style="width: 1000px; height: 600px;"></div>
+   <hr>
+   <div class="footer-container">
+        <jsp:include page="footer.jsp"/>
+   </div>
    
    <script type="text/javascript">
 	   // Chrome 보안 강화 정책에 따른 서드파티 쿠키 허용

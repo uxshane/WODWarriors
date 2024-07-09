@@ -1,6 +1,10 @@
 package com.warriors.wod;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,8 +50,7 @@ public class LoginRegisterController {
 	/*------------------------------------------------------------*/
 
 	/*------------------------------------------------------------*/
-<<<<<<< Updated upstream
-=======
+
 	 // 로그인 "진행시켜!!"
     @RequestMapping(value = "/verify_login.do", method = RequestMethod.POST)
     public String verify_user_login(String email, String password, Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -97,7 +100,7 @@ public class LoginRegisterController {
         return "redirect:/login.do";
     }
 	
->>>>>>> Stashed changes
+
 	//회원가입 "진행시켜!!"
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
 	public String registerUser(UserVO user, String verificationCode, Model model) {
