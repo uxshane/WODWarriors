@@ -22,6 +22,16 @@
 	        margin-bottom: 20px; /* 맵과 아이콘 바 사이의 간격 */
 	    }
 	    
+	    .button-container {
+            margin-top: 10px;
+        }
+        
+        .button-container button {
+            margin-right: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+	    
 	    .footer-container {
 	        width: 800px; /* 맵의 너비와 동일하게 설정 */
 	        display: flex;
@@ -37,6 +47,7 @@
 	   var geocoder = new kakao.maps.services.Geocoder();
 	   var posts = JSON.parse('${posts}');
 	   var openInfowindow = null;
+	   var markers = [];
 	   
 	   posts.forEach(function(post) {
 	       var addr = post.location;
@@ -44,7 +55,7 @@
 	        '<h4>' + post.title + '</h4>' +
 	        '<p>' + post.description + '</p>' +
 	        '<p>' + post.startdate + ' ' + post.starttime + '</p>' +
-	        '<p>Location: ' + post.location + '</p>' +
+	        '<p>위치: ' + post.location + '</p>' +
 	        '<button onclick="navigateToPostDetail(' + userIdx + ', ' + post.idx + ')">참여하기</button>' +
 	        '</div>';
 
@@ -88,10 +99,18 @@
 	               var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 	
 	               var marker = new kakao.maps.Marker({
-	                   map: map,
-	                   position: coords,
-	                   image: markerImage // 마커 이미지 설정
-	               });
+                       map: map,
+                       position: coords,
+                       image: markerImage
+                   });
+	               
+	               var markerType;
+                   if (userIdx === post.user_idx) {
+                       markerType = 'my';
+                   } else {
+                       markerType = 'your';
+                   }
+                   marker.type = markerType; // 마커 타입 설정
 	
 	               var infowindow = new kakao.maps.InfoWindow({
 	                   content: content,
@@ -128,6 +147,8 @@
 	                   }
 	               });
 	               
+	               markers.push(marker);
+	               
 	           }
 	       });
 	   });
@@ -137,6 +158,27 @@
 		    window.location.href = url;
 		}
 	   
+	    function setMarkers(type) {
+            for (var i = 0; i < markers.length; i++) {
+            	console.log(markers[i].type);
+                if (markers[i].type === type) {
+                    markers[i].setMap(map);
+                } else if(type === 'all') {
+                	markers[i].setMap(map);
+                } else {
+                    markers[i].setMap(null);
+                }
+            }
+        }
+
+        function showMyMarkers() {
+            setMarkers('my');
+        }
+
+        function showYourMarkers() {
+            setMarkers('your');
+        }
+        
    </script>
 
 </head>
@@ -144,6 +186,11 @@
 <body>
 	
    <div id="map" style="width: 1000px; height: 600px;"></div>
+   <div class="button-container">
+        <button onclick="showMyMarkers()">내 게시물</button>
+        <button onclick="showYourMarkers()">네 게시물</button>
+        <button onclick="setMarkers('all')">모두 보기</button>
+    </div>
    <hr>
    <div class="footer-container">
         <jsp:include page="footer.jsp"/>
@@ -300,7 +347,7 @@
 	           } else {
 	               // 클릭 이벤트 함수
 	               // callFunctionWithRegionCode(area.location);
-	               map.setLevel(level); // level에 따라 이벤트 변경
+	               map.setLevel(level-1); // level에 따라 이벤트 변경
 	               map.panTo(center); // 클릭한 폴리곤의 중심을 지도 중심으로 설정
 	           }
 	       });

@@ -21,14 +21,14 @@
     </style>
     <script>
         setTimeout(function() {
-            window.location.href = "testmap.do";
+            window.location.href = "post_detail.do?postIdx="+${postIdx};
         }, 1000);
     </script>
 </head>
 <body>
     <div class="message">
-        <h1>이미 참여자이거나, 등록 실패했습니다</h1>
-        <p>2초 후에 페이지가 이동됩니다.</p>
+        <h1>${error_message}</h1>
+        <p>1초 후에 페이지로 돌아갑니다.</p>
     </div>
 </body>
 </html>

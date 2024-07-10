@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.EmailService;
 import service.UserService;
@@ -132,12 +133,20 @@ public class LoginRegisterController {
 
 	/*------------------------------------------------------------*/
 	//인증코드를 보내주는 작업을 하는 용도
-    @RequestMapping(value = "/sendVerificationCode.do", method = RequestMethod.POST)
-    public void sendVerificationCode(@RequestParam("email") String email) {
+	@RequestMapping(value = "/sendVerificationCode.do", method = RequestMethod.POST)
+	@ResponseBody
+    public String sendVerificationCode(@RequestParam("email") String email) {
+		
+		boolean emailExists = emailService.emailExists(email);
+		if (emailExists) {
+			return "error";
+		}
+		
         try {
-			emailService.generateAndSendVerificationCode(email);
+			String code = emailService.generateAndSendVerificationCode(email);
+			return code;
 		} catch (MessagingException e) {
-			e.printStackTrace();
+			return "error";
 		}
     }
 	

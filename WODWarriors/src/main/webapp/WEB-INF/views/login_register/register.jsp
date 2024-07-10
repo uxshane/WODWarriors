@@ -16,6 +16,8 @@
 	            const name = f.name;
 	            const agree = f.agree;
 	            const verificationCode = f.verificationCode;
+	            const verificationMessage = document.getElementById("verificationMessage");
+	            const check_code = document.getElementById("check_code");
 
 	            if (!email.value.includes('@')) {
 	                email.setCustomValidity("유효한 이메일 주소를 입력하세요.");
@@ -26,10 +28,10 @@
 	            }
 	            
 	            if (verificationCode && verificationCode.value.trim() === '') {
-	                verificationMessage.style.display = "block";
+	            	verificationMessage.style.display = "block";
 	                return false;
 	            } else {
-	                verificationMessage.style.display = "none";
+	            	verificationMessage.style.display = "none";
 	            }
 
 	            if (password.value.length < 6) {
@@ -55,6 +57,21 @@
 	            } else {
 	                agree.setCustomValidity("");
 	            }
+	            
+	            if(check_code) {
+	            	if(check_code.value == verificationCode.value) {
+	            		verificationCode.setCustomValidity("");
+	            	} else {
+	            		verificationCode.setCustomValidity("인증코드가 올바르지 않습니다");
+		            	verificationCode.reportValidity();
+		            	return false;
+	            	}
+	            } 
+/* 	            else {
+	            	verificationCode.setCustomValidity("인증코드를 기입해주세요");
+	            	verificationCode.reportValidity();
+	            	return false;
+	            } */
 				
 	            f.action = "register.do";
 	            f.method = "post";
@@ -69,25 +86,42 @@
 	            }
 
 	            // AJAX 요청으로 인증코드 전송
+	            const verificationMessage = document.getElementById("verificationMessage");
 	            const xhr = new XMLHttpRequest();
 	            xhr.open("POST", "sendVerificationCode.do", true);
 	            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	            xhr.onreadystatechange = function() {
 	                if (xhr.readyState === 4 && xhr.status === 200) {
-	                    alert("인증코드가 이메일로 전송되었습니다.");
-	                    const verificationCodeField = document.getElementById("verificationCodeField");
-	                    if (!verificationCodeField) {
-	                        const emailField = document.getElementById("emailField");
-	                        const newField = document.createElement("div");
-	                        newField.id = "verificationCodeField";
-	                        newField.innerHTML = `
-	                            <label for="verificationCode">인증코드</label>
-	                            <input type="text" id="verificationCode" name="verificationCode" required>
-	                        `;
-	                        emailField.parentNode.insertBefore(newField, emailField.nextSibling);
-	                    }
-	                }
+	                	const response = xhr.responseText;
+	                	if (response === "error") {
+	                        alert("이메일이 존재하거나, 오류가 발생하였습니다.");
+	                        location.href = "register.do";
+	                    } else {
+	                    	alert("인증코드가 이메일로 전송되었습니다.");
+	                        verificationMessage.style.display = "none";
+	                    	verificationMessage.innerHTML = "인증코드를 입력하세요.";
+		                    const verificationCodeField = document.getElementById("verificationCodeField");
+		                    if (!verificationCodeField) {
+		                        const emailField = document.getElementById("emailField");
+		                        const newField = document.createElement("div");
+		                        newField.id = "verificationCodeField";
+		                        newField.innerHTML = `
+		                            <label for="verificationCode">인증코드</label>
+		                            <input type="text" id="verificationCode" name="verificationCode" required>
+		                            <input type="hidden" id="check_code">
+		                            <input type="hidden" id="verifiedEmail">
+		                            `;
+		                        emailField.parentNode.insertBefore(newField, emailField.nextSibling);
+		                    }
+		                    document.getElementById("check_code").value = response;
+		                    document.getElementById("verifiedEmail").value = email;
+	                  	}
+	                	document.getElementById("email").readOnly = true;
+	                }	
 	            };
+	            
+	            verificationMessage.innerHTML = "인증번호 전송중...";
+                verificationMessage.style.display = "block";
 	            xhr.send("email=" + encodeURIComponent(email));
 	        }
 			
@@ -112,7 +146,12 @@
 
             <label for="name">이름</label>
             <input type="text" id="name" name="name" required>
-
+            
+            <div class="checkbox">
+            	<input type="checkbox" id="signMeAdmin" name="signMeAdmin">
+            	<label for="isAdmin">관리자 신청</label>
+            </div>
+            
             <div class="checkbox">
                 <input type="checkbox" id="agree" name="agree" required>
                 <label for="agree">개인정보보호방침에 동의합니다</label>

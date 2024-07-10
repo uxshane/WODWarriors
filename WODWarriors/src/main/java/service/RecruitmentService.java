@@ -52,7 +52,6 @@ public class RecruitmentService {
 		if (isApplicant(postIdx, join_user_idx)) {
 	        return false; // 이미 신청한 경우 false 반환
 	    }
-		
 		String sql = "INSERT INTO recruitments (idx, post_idx, user_idx, join_user_idx) VALUES (seq_recruitments_idx.nextVal, ?, ?, ?)";
 		int result = jdbcTemplate.update(sql, postIdx, userIdx, join_user_idx);
 		return result > 0;

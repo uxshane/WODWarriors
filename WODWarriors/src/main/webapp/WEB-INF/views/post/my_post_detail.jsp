@@ -9,6 +9,7 @@
 body {
 	background-color: #FFFFFF;
 	font-family: Arial, sans-serif;
+	justify-content: center;
 }
 
 .container {
@@ -122,8 +123,11 @@ body {
 }
 </style>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/style.css'/>">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/style.css'/>">
+	
 <script>
         document.addEventListener('DOMContentLoaded', (event) => {
             history.pushState(null, null, location.href);
@@ -132,7 +136,33 @@ body {
                 location.href = 'testmap.do';
             });
         });
-    </script>
+</script>
+
+<script>
+    function deletePost(postIdx) {
+        if (confirm('정말로 이 게시물을 삭제하시겠습니까?')) {
+            fetch('deletePost.do', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({ postIdx: postIdx })
+            })
+            .then(response => response.json())
+            .then(data => handleDeleteResponse(data))
+            .catch(error => console.error('Error:', error));
+        }
+    }
+
+    function handleDeleteResponse(response) {
+        if (response.status === 'success') {
+            alert('게시물이 성공적으로 삭제되었습니다.');
+            window.location.href = 'testmap.do';
+        } else {
+            alert('게시물 삭제에 실패했습니다: ' + response.message);
+        }
+    }
+</script>
 
 </head>
 <body>
@@ -142,9 +172,9 @@ body {
 		</div>
 		<div class="content">
 			<div class="content-title">${postUser.title}</div>
-			
+
 			<hr>
-			
+
 			<div class="content-item">
 				<img src="resources/images/clock.png" alt="Time"> <span>${postUser.startDate}
 					${postUser.startTime}</span>
@@ -161,15 +191,15 @@ body {
 			<div class="content-item">
 				<img src="resources/images/person.png" alt="User"> <span>${postUser.userName}</span>
 			</div>
-			
+
 			<hr>
-			
+
 			<div class="content-item">
 				<span>${postUser.description}</span>
 			</div>
-			
+
 			<hr>
-			
+
 		</div>
 		<div class="applicant-list">
 			<h3>신청자 목록</h3>
@@ -186,11 +216,13 @@ body {
             </c:if>
 		</div>
 		<div class="buttons">
-			<button class="button edit-button">수정하기</button>
-			<button class="button delete-button">삭제하기</button>
+			<button class="button edit-button"
+				onclick="location.href='send_to_updateForm.do?postIdx=${postUser.postIdx}'">수정하기</button>
+			<button class="button delete-button"
+				onclick="deletePost(${postUser.postIdx})">삭제하기</button>
 		</div>
 		<hr>
-		<jsp:include page="footer.jsp"/>
+		<jsp:include page="footer.jsp" />
 	</div>
 </body>
 </html>

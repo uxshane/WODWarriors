@@ -8,11 +8,13 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import util.PropertiesUtil;
 import vo.UserVO;
 
 @Service
@@ -33,11 +35,12 @@ public class EmailService {
     }
 	
 	public void sendPasswordByEmail(String email) {
-		String sql = "SELECT * FROM USERS WHERE email = '" + email + "'";
-        UserVO user = jdbcTemplate.queryForObject(sql, UserVO.class);
+		String sql = "SELECT * FROM USERS WHERE email = ?";
+        UserVO user = jdbcTemplate.queryForObject(sql, new Object[]{email},
+        										  new BeanPropertyRowMapper<>(UserVO.class));
         String password = user.getPassword();
-        String subject = "Your Password";
-        String message = "Your password is: " + password;
+        String subject = "WODWarriors: 비밀번호 전송";
+        String message = user.getName() + "님의 비밀번호는 " + password + " 입니다.";
 
         try {
             sendEmail(email, subject, message);
@@ -48,13 +51,27 @@ public class EmailService {
 	
     public void sendEmail(String to, String subject, String text) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        MimeMessageHelper helper = new MimeMessageHelper(message, false, "UTF-8");
 
         helper.setTo(to);
         helper.setSubject(subject);
         helper.setText(text, true);
-
         mailSender.send(message);
+    }
+    
+    public void sendAdminRegiForm(String email, String name) {
+        String subject = "WODWarriors: 관리자 신청서";
+        String message = name + "님께서 해당 " + email + " 이메일로 신청서를 넣으셨습니다.";
+        
+        PropertiesUtil propertiesUtil = new PropertiesUtil("secret_key.properties");
+        String to = propertiesUtil.getProperty("gmail");
+        System.out.println("Gmail: " + to);
+        
+        try {
+            sendEmail(to, subject, message);
+        } catch (MessagingException e) {
+            System.out.println("어떤 오류때문에 이메일이 보내지지 않음");
+        }
     }
     
     public String generateAndSendVerificationCode(String email) throws MessagingException {
