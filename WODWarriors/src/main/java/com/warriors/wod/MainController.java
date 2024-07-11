@@ -15,8 +15,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import service.PostService;
+import service.UserService;
 import util.PropertiesUtil;
 import vo.PostVO;
+import vo.UserVO;
 
 @Controller
 public class MainController {
@@ -25,26 +27,51 @@ public class MainController {
 	@Autowired
 	private PostService postService;
 
-//	@RequestMapping("/main.do")
-//	public String showMainPage() {
-//		return "/WEB-INF/views/mainpage.jsp";
-//	}
+	@Autowired
+	private UserService userService;
+
+	//	@RequestMapping("/main.do")
+	//	public String showMainPage() {
+	//		return "/WEB-INF/views/mainpage.jsp";
+	//	}
 
 
 	@RequestMapping("main.do")
 	public String showMainPage(Model model, HttpServletRequest request) {
 
-		boolean isAdmin = false;
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("userRole") && cookie.getValue().equals("admin")) {
-					isAdmin = true;
-					break;
-				}
+		//		Cookie[] cookies = request.getCookies();
+		//		if (cookies != null) {
+		//			for (Cookie cookie : cookies) {
+		//				if (cookie.getName().equals("userRole") && cookie.getValue().equals("admin")) {
+		//					isAdmin = true;
+		//					break;
+		//				}
+		//			}
+		//		}
+
+		HttpSession session = request.getSession();
+		Integer userIdx = (Integer) session.getAttribute("userIdx");
+		if (userIdx == null) {
+			userIdx = -1; // userIdx가 없을 경우 -1로 설정
+		}
+		model.addAttribute("userIdx", userIdx);
+
+
+		boolean isAdmin;
+		if(userIdx != -1) {
+			UserVO curUser = userService.selectOneUser(userIdx);
+			if(curUser.getIsAdmin() == 1) {
+				isAdmin = true;
+			} else {
+				isAdmin = false;
 			}
+		} else {
+			isAdmin = false;
 		}
 		model.addAttribute("isAdmin", isAdmin);
+
+		List<PostVO> post_list = postService.getAllPosts();
+		model.addAttribute("posts", post_list);
 
 		return "/WEB-INF/views/mainpage.jsp";
 
@@ -80,4 +107,29 @@ public class MainController {
 		return "/WEB-INF/views/testmap.jsp";
 	}
 
+	@RequestMapping("settings.do")
+	public String showSettingsPage(Model model, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		Integer session_userIdx = (Integer) session.getAttribute("userIdx");
+		if(session_userIdx == null || session_userIdx == -1) {
+			return "redirect:login.do";
+		} else {
+			UserVO curUser = userService.selectOneUser(session_userIdx);
+			model.addAttribute("user", curUser);
+			return "/WEB-INF/views/mypage.jsp";
+		}
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+

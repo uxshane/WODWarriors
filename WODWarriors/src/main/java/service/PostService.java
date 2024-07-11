@@ -18,7 +18,7 @@ public class PostService {
 	private JdbcTemplate jdbcTemplate;
 
 	public List<PostVO> getAllPosts() {
-		String sql = "SELECT * FROM POSTS";
+		String sql = "SELECT * FROM POSTS ORDER BY startdate, starttime DESC";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(PostVO.class));
 	}
 

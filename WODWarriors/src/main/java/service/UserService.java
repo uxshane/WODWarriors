@@ -14,7 +14,7 @@ public class UserService {
 	private JdbcTemplate jdbcTemplate;
 
 	public UserVO selectOneUser(int userIdx) {
-		String sql = "SELECT * FROM USERS WHERE userIdx = ?";
+		String sql = "SELECT * FROM USERS WHERE Idx = ?";
 		try {
 			return jdbcTemplate.queryForObject(sql, new Object[]{userIdx},
 					new BeanPropertyRowMapper<>(UserVO.class));
@@ -24,9 +24,10 @@ public class UserService {
 	}
 
 	public int registerUser(UserVO user) {
-		String sql = "INSERT INTO USERS (idx, name, email, password) "
-				+ "VALUES (seq_user_idx.nextVal, ?, ?, ?)";
-		int res = jdbcTemplate.update(sql, user.getName(), user.getEmail(), user.getPassword());
+		String sql = "INSERT INTO USERS (idx, name, email, password, isAdmin) "
+				   + "VALUES (seq_users_idx.nextVal, ?, ?, ?, ?)";
+		int res = jdbcTemplate.update(sql, user.getName(), user.getEmail(), 
+										   user.getPassword(), user.getIsAdmin());
 		return res;
 	}
 

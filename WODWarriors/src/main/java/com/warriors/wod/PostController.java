@@ -143,9 +143,9 @@ public class PostController {
 	@RequestMapping("update_my_post.do")
 	@ResponseBody
 	public Map<String, Object> updateMyPost(@ModelAttribute PostVO post,
-			String exercise,
-			String exerciseOption,
-			HttpServletRequest request) {
+															String exercise,
+															String exerciseOption,
+															HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		int userIdx = (int) session.getAttribute("userIdx");
 

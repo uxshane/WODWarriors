@@ -2,7 +2,7 @@ package vo;
 
 public class UserVO {
 
-	private int idx;
+	private int idx, isAdmin;
 	private String name, email, password;
 	
 	public int getIdx() {
@@ -28,6 +28,12 @@ public class UserVO {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public int getIsAdmin() {
+		return isAdmin;
+	}
+	public void setIsAdmin(int isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 	
 }
