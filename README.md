@@ -12,7 +12,8 @@ Back-end : Spring Framework
 ---화면 구현---
 
 1. 로그인, 회원가입, 본인인증, 비밀번호 찾기
-- ![로그인화면](https://github.com/user-attachments/assets/00f7ded7-59e9-4ecb-aff2-05cb8dd3a853)
+2. <img src="/uploads/1848994ad25765da30fa8ef3684c67bc/캡처.PNG"  width="700" height="370">
+- <img src="https://github.com/user-attachments/assets/00f7ded7-59e9-4ecb-aff2-05cb8dd3a853" width="200" height="300">
  ![회원가입화면](https://github.com/user-attachments/assets/e4f1c8dc-e533-4fa3-b690-cf7da781d9f9)
 
 2. 홈 화면, 신청 화면, 지도 화면, 마이페이지
