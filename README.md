@@ -44,7 +44,19 @@
         </tr>
         <tr>
             <td>
-                <img src="https://github.com/user-attachments/assets/76e86a27-84bb-4915-9185-38b2f7ecca24" width="100%">
+                <img src="https://github.com/user-attachments/assets/7b761480-a713-41ec-928b-7098d741c8bc" width="100%">
+            </td>
+            <td>
+                <img src="https://github.com/user-attachments/assets/ed4de5c4-23f2-4db0-b23d-256168feca7a" width="100%">
+            </td>
+        </tr>
+	<tr>
+            <td>운동모임 개설</td>
+            <td>위치선택</td>
+        </tr>
+        <tr>
+            <td>
+                <img src="(https://github.com/user-attachments/assets/bccd0710-5e12-448b-a8cc-898f0a9004b7" width="100%">
             </td>
             <td>
                 <img src="https://github.com/user-attachments/assets/be08b963-9aa5-4d8e-8659-1983bc8f564e" width="100%">
