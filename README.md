@@ -1,21 +1,22 @@
 # WODWarriors
-#### <span style="color:red">주의 : 개발이 잠시 보류된 상태입니다. 기본적인 메인 기능들은 포함되어있지만, 개발 환경(Eclipse -> Intellij)의 변경과 대대적인 코드 리팩토링 진행 중입니다</span>
+#### ⚠️ **주의 : 개발이 잠시 보류된 상태입니다. 기본적인 메인 기능들은 포함되어있지만, 개발 환경(Eclipse -> Intellij)의 변경과 대대적인 코드 리팩토링 진행 중입니다**
 
 ## 1. 목표와 기능
 
 ### 0.1 사용 기술 스택
-<span style="color:red">변경 전</span>
+**변경 전:**
 - Eclipse(STS)
 - Spring Framework
 - OracleDB
 - Javascript, HTML, CSS
-<span style="color:red">변경 진행 중</span>
+
+**변경 진행 중:**
 - Intellij
 - Spring Boot
 - MariaDB
 - Javascript, Html, CSS
 - JPA
-- 적용되고 있는 디자인 패턴 : Decorator, factory method 패턴 
+- 적용되고 있는 디자인 패턴 : Decorator, factory method 패턴
 
 ### 1.1 목표
 #### 와드워리어즈 웹 애플리케이션은 현대 사회에서 사람들을 모아 함께 운동할 수 있도록, 운동 종류와 위치를 공유하는 플랫폼입니다.
