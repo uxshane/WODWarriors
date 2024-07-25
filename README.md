@@ -52,14 +52,14 @@
         </tr>
 	<tr>
             <td>운동모임 개설</td>
-            <td>위치선택</td>
+            <td>운동위치선택(됨)</td>
         </tr>
         <tr>
             <td>
-                <img src="(https://github.com/user-attachments/assets/bccd0710-5e12-448b-a8cc-898f0a9004b7" width="100%">
+                <img src="https://github.com/user-attachments/assets/e35cf360-99e9-40ac-bf05-4ca52a92eccd" width="100%">
             </td>
             <td>
-                <img src="https://github.com/user-attachments/assets/be08b963-9aa5-4d8e-8659-1983bc8f564e" width="100%">
+                <img src="https://github.com/user-attachments/assets/20c97595-ea8b-4d32-be7a-fb8537348ee2" width="100%">
             </td>
         </tr>
     </tbody>
