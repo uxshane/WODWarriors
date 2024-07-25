@@ -20,10 +20,10 @@
         </tr>
         <tr>
             <td>
-		<img src="https://github.com/user-attachments/assets/841c6d85-ad0a-4064-81be-002ff72da165" width="100%">
+		<img src="https://github.com/user-attachments/assets/438860fa-f15c-429f-a99c-517b89f62dd8" width="100%">
             </td>
             <td>
-                <img src="ui2.png" width="100%">
+                <img src="https://github.com/user-attachments/assets/841c6d85-ad0a-4064-81be-002ff72da165" width="100%">
             </td>
         </tr>
         <tr>
