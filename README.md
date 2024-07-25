@@ -26,8 +26,7 @@
                 <img src="https://github.com/user-attachments/assets/841c6d85-ad0a-4064-81be-002ff72da165" width="100%">
             </td>
         </tr>
-	    
-        <tr>
+	<tr>
             <td>회원가입</td>
             <td>비밀번호 찾기</td>
         </tr>
