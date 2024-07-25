@@ -38,8 +38,7 @@
                 <img src="https://github.com/user-attachments/assets/00ec6ece-70ff-43ec-8c3c-bfb6512041f8" width="100%">
             </td>
         </tr>
-
-        <tr>
+	<tr>
             <td>지도</td>
             <td>위치선택</td>
         </tr>
@@ -51,7 +50,6 @@
                 <img src="https://github.com/user-attachments/assets/be08b963-9aa5-4d8e-8659-1983bc8f564e" width="100%">
             </td>
         </tr>
-
     </tbody>
 </table>
 
