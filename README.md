@@ -26,54 +26,33 @@
                 <img src="https://github.com/user-attachments/assets/841c6d85-ad0a-4064-81be-002ff72da165" width="100%">
             </td>
         </tr>
+	    
         <tr>
             <td>회원가입</td>
-            <td>정보수정</td>
+            <td>비밀번호 찾기</td>
         </tr>
         <tr>
             <td>
-                <img src="ui3.png" width="100%">
+                <img src="https://github.com/user-attachments/assets/4beea5ca-4210-4c84-b664-559b6f2661a5" width="100%">
             </td>
             <td>
-                <img src="ui3.png" width="100%">
+                <img src="https://github.com/user-attachments/assets/00ec6ece-70ff-43ec-8c3c-bfb6512041f8" width="100%">
             </td>
         </tr>
-        <tr>
-            <td>검색</td>
-            <td>번역</td>
-        </tr>
-        <tr>
-            <td>
-                <img src="ui3.png" width="100%">
-            </td>
-            <td>
-                <img src="ui3.png" width="100%">
-            </td>
-        </tr>
-        <tr>
-            <td>선택삭제</td>
-            <td>글쓰기</td>
+
+ 	<tr>
+            <td>지도</td>
+            <td>위치선택</td>
         </tr>
         <tr>
             <td>
-	        <img src="ui3.png" width="100%">
+                <img src="https://github.com/user-attachments/assets/76e86a27-84bb-4915-9185-38b2f7ecca24" width="100%">
             </td>
             <td>
-                <img src="ui3.png" width="100%">
+                <img src="https://github.com/user-attachments/assets/be08b963-9aa5-4d8e-8659-1983bc8f564e" width="100%">
             </td>
         </tr>
-        <tr>
-            <td>글 상세보기</td>
-            <td>댓글</td>
-        </tr>
-        <tr>
-            <td>
-                <img src="ui3.png" width="100%">
-            </td>
-            <td>
-                <img src="ui3.png" width="100%">
-            </td>
-        </tr>
+
     </tbody>
 </table>
 
